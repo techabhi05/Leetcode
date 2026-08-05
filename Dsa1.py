@@ -1,21 +1,22 @@
 class Solution:
-    def flipAndInvertImage(self, image):
+    def removeDuplicates(self, s , k):
+        pocket = []
+        answer = ""
 
-        # for reverse each row
-        for img in image:
-            i,j = 0,len(img)-1
-
-            while i <= j:
-                img[i],img[j] = img[j],img[i]
-                i += 1
-                j -= 1
-
-        # for inverting the image
-        for num in image:
-            n = len(num)
-            for i in range(n):
-                if num[i] == 0:
-                    num[i] = 1
+        for ch in s:
+            if len(pocket) == 0 or pocket[-1][0] != ch:
+                pocket.append([ch,1])
+            else:
+                if pocket[-1][1] == k-1:
+                    pocket.pop()
                 else:
-                    num[i] = 0
-        return image    
+                    pocket[-1][1] += 1
+
+
+        for num in pocket:
+            for i in range(num[1]):
+                answer += num[0]
+
+        return answer
+
+                    
